@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+  The subset worth running on every change: one check per requirement in the assignment, with the
+  slower and secondary cases left out.
+
+  Run: mvn clean test -Dsuite=testng-smoke.xml
+-->
+<suite name="Dream Portal Smoke Suite" verbose="1" configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="com.wingify.dreamportal.listeners.TestListener"/>
+        <listener class-name="com.wingify.dreamportal.listeners.RetryTransformer"/>
+    </listeners>
+
+    <test name="Smoke - Core UI">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.wingify.dreamportal.tests.HomePageTest"/>
+            <class name="com.wingify.dreamportal.tests.DreamsDiaryTest"/>
+            <class name="com.wingify.dreamportal.tests.DreamsTotalTest"/>
+        </classes>
+    </test>
+
+</suite>

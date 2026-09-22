@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+  Full regression suite for the core UI tests.
+
+  Listeners are declared here rather than with @Listeners on each class, so every suite picks
+  them up automatically. Allure's own TestNG listener registers itself through the ServiceLoader
+  and does not need to be listed.
+
+  Run:            mvn clean test
+  Smoke only:     mvn clean test -Dsuite=testng-smoke.xml
+-->
+<suite name="Dream Portal Automation Suite" verbose="1" configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="com.wingify.dreamportal.listeners.TestListener"/>
+        <listener class-name="com.wingify.dreamportal.listeners.RetryTransformer"/>
+    </listeners>
+
+    <test name="Part 1 - Core UI Functional Tests">
+        <classes>
+            <class name="com.wingify.dreamportal.tests.HomePageTest"/>
+            <class name="com.wingify.dreamportal.tests.DreamsDiaryTest"/>
+            <class name="com.wingify.dreamportal.tests.DreamsTotalTest"/>
+        </classes>
+    </test>
+
+</suite>
