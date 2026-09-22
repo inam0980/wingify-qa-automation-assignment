@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Console output stays readable for someone watching the run; the file appender keeps the full
+  history, including the Selenium internals that are too noisy for the console.
+-->
+<Configuration status="WARN">
+
+    <Properties>
+        <Property name="consolePattern">%highlight{%-5level} %style{%d{HH:mm:ss.SSS}}{cyan} [%t] %style{%logger{1}}{magenta} - %msg%n</Property>
+        <Property name="filePattern">%-5level %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n%throwable</Property>
+        <Property name="logDir">target/logs</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${consolePattern}"/>
+        </Console>
+
+        <RollingFile name="File"
+                     fileName="${logDir}/automation.log"
+                     filePattern="${logDir}/automation-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${filePattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- The suite's own classes: everything, in both places. -->
+        <Logger name="com.wingify.dreamportal" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="File" level="DEBUG"/>
+        </Logger>
+
+        <!-- Selenium and HTTP internals: kept out of the console, kept in the file. -->
+        <Logger name="org.openqa.selenium" level="WARN" additivity="false">
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="org.apache.hc" level="WARN" additivity="false">
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>
