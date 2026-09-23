@@ -14,8 +14,9 @@ Tests run: 30, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
-30 tests across 4 classes, run headless against the live site — 17 UI tests plus 13 covering the AI
-classification. The AI cross-check agreed with the portal on 10 of 10 dreams.
+30 tests across 4 classes, run headless against the live site — 18 UI tests plus 12 covering the AI
+classification, 10 of which are the data-driven check of one dream name each. The AI cross-check
+agreed with the portal on 10 of 10 dreams.
 
 | | |
 | --- | --- |
